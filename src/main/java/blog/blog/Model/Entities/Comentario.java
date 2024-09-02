@@ -27,7 +27,7 @@ public class Comentario {
   private Long id;
   private String cuerpoComentario;
   @ManyToOne
-  @JoinColumn(name = "Post_id")
+  @JoinColumn(name = "post_id")
   private Post post;
   @ManyToOne
   @JoinColumn(name = "usuario_id")
