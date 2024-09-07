@@ -34,10 +34,10 @@ public class Post {
  private String titulo;
  private LocalDate fechaPublicacion;
  private String contenido;
- @OneToMany(mappedBy = "post",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+ @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
  private List<Comentario>comentarios;
 
- @ManyToMany
+ @ManyToMany(fetch = FetchType.LAZY)
  @JoinTable(
     name = "Post_Etiqueta",
     joinColumns = @JoinColumn(name = "Post_id"),
