@@ -50,6 +50,7 @@ public class UsuarioServiceImpl implements IUsuario{
         usuario.setEmail(usuario.getEmail());
         usuario.setPassword(usuario.getPassword());
         usuario.setNickName(usuario.getNickName());
+        usuarioRepo.save(usuario);
         return Optional.of(usuarioMapper.toUsuarioDto(usuario));
     }
 
