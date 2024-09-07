@@ -11,7 +11,9 @@ import blog.blog.Model.Entities.Post;
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long>{
   List<Post>findByFechaPublicacionLessThan(LocalDate fecha);
+  
   List<Post>findByTituloIgnoreCase(String nombre);
+
   @Query("SELECT p FROM Post p JOIN p.comentarios c WHERE LOWER(c.cuerpoComentario) LIKE LOWER(CONCAT('%', :palabra, '%'))")
   List<Post> findByCuerpoComentarioIgnoreCaseContaining(@Param("palabra") String palabra);
   

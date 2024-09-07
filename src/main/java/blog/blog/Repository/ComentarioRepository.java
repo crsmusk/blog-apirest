@@ -14,7 +14,7 @@ public interface ComentarioRepository extends JpaRepository<Comentario,Long>{
 
  List<Comentario> findByCuerpoComentarioIgnoreCaseContaining(String palabra);
 
-  @Query("SELECT c FROM Comentario c JOIN Post p WHERE p.id = :id AND c.cuerpoComentario LIKE %:palabra%")
+  @Query("SELECT c FROM Comentario c JOIN c.post p WHERE p.id = :id AND  LOWER(c.cuerpoComentario) LIKE LOWER(CONCAT('%', :palabra, '%'))")
   List<Comentario> findByCuerpoComentario(@Param("palabra") String palabra, @Param("id") Long id);
 
   
