@@ -59,8 +59,8 @@ public class UsuarioServiceImpl implements IUsuario{
         if (usuarioRepo.findById(id).isPresent()) {
             Usuario usuario=usuarioRepo.findById(id).get();
             usuario.setEmail(usuarioDt.getEmail());
-            usuario.setPassword(usuario.getPassword());
-            usuario.setNickName(usuario.getNickName());
+            usuario.setPassword(usuarioDt.getPassword());
+            usuario.setNickName(usuarioDt.getNickName());
             usuarioRepo.save(usuario);
             return Optional.of(usuarioMapper.toUsuarioDto(usuario));
         }else{
