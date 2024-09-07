@@ -47,9 +47,9 @@ public class UsuarioServiceImpl implements IUsuario{
     @Override
     public Optional<UsuarioDTO> Save(UsuarioDTO usuarioDt) {
         Usuario usuario=new Usuario();
-        usuario.setEmail(usuario.getEmail());
-        usuario.setPassword(usuario.getPassword());
-        usuario.setNickName(usuario.getNickName());
+        usuario.setEmail(usuarioDt.getEmail());
+        usuario.setPassword(usuarioDt.getPassword());
+        usuario.setNickName(usuarioDt.getNickName());
         usuarioRepo.save(usuario);
         return Optional.of(usuarioMapper.toUsuarioDto(usuario));
     }
