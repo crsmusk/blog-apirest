@@ -10,6 +10,7 @@ import blog.blog.Model.Entities.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long>{
+
   List<Post>findByFechaPublicacionLessThan(LocalDate fecha);
   
   List<Post>findByTituloIgnoreCase(String nombre);
