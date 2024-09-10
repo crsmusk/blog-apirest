@@ -31,9 +31,9 @@ public class Usuario {
  private String email;
  private String password;
  private String nickName;
- @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+ @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = false)
  private List<Comentario>Comentarios;
  
- @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+ @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = false)
  private List<Post>posts;
 }

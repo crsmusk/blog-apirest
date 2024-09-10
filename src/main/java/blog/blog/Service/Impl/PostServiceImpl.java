@@ -104,6 +104,7 @@ public class PostServiceImpl implements IPost {
     }
 
     @Override
+    //@Transactional
     public void DeleteById(Long id) {
         postRepo.deleteById(id);
     }
