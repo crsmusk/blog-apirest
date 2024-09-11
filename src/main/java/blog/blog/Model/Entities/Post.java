@@ -34,7 +34,7 @@ public class Post {
  private String titulo;
  private LocalDate fechaPublicacion;
  private String contenido;
- @OneToMany(mappedBy = "post",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+ @OneToMany(mappedBy = "post",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
  private List<Comentario>comentarios;
 
  @ManyToMany(fetch = FetchType.LAZY)
