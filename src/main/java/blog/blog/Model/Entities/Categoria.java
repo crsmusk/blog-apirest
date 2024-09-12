@@ -28,6 +28,6 @@ public class Categoria {
   private Long id;
   @Column(unique = true,name = "Nombre_Categoria")
   private String nombreCategoria;
-  @OneToMany(mappedBy = "categoria",orphanRemoval = false)
+  @OneToMany(mappedBy = "categoria")
   private List<Post>posts;
 }
