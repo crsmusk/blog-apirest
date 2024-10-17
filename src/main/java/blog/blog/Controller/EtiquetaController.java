@@ -26,49 +26,33 @@ public class EtiquetaController {
     EtiquetaServiceImpl etiquetaService;
 
     @GetMapping
-    public ResponseEntity<List<EtiquetaDTO>>GetAll(){
-        if (etiquetaService.GetAllEtiquetas().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else{
-            return new ResponseEntity<>(etiquetaService.GetAllEtiquetas(),HttpStatus.OK);
-        }
+    public ResponseEntity<List<EtiquetaDTO>>getAll(){
+        return new ResponseEntity<>(etiquetaService.getAllEtiquetas(),HttpStatus.OK);
     }
 
-    @GetMapping("/BuscarEtiquetasPorNombre/{NombreEtiqueta}")
-    public ResponseEntity<Optional<EtiquetaDTO>>GetByNombre(@PathVariable String nombre){
-        if (etiquetaService.findByNombreEtiqueta(nombre).isPresent()) {
-            return new ResponseEntity<>(etiquetaService.findByNombreEtiqueta(nombre),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/BuscarEtiquetasPorNombre/{nombre}")
+    public ResponseEntity<EtiquetaDTO>getByNombre(@PathVariable String nombre){
+        return new ResponseEntity<>(etiquetaService.findByNombreEtiqueta(nombre),HttpStatus.OK);
     }
 
     @GetMapping("/BuscarPorId/{id}")
-    public ResponseEntity<Optional<EtiquetaDTO>>GetById(@PathVariable Long id){
-        if(etiquetaService.FindById(id).isPresent()){
-            return new ResponseEntity<>(etiquetaService.FindById(id),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    public ResponseEntity<EtiquetaDTO>getById(@PathVariable Long id){
+            return new ResponseEntity<>(etiquetaService.findById(id),HttpStatus.OK);
     }
 
-    @PostMapping("/GuardarEtiqueta")
-    public ResponseEntity<Optional<EtiquetaDTO>>SaveEtiqueta(@RequestBody EtiquetaDTO etiquetaDt){
-        return new ResponseEntity<>(etiquetaService.Save(etiquetaDt),HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<EtiquetaDTO>saveEtiqueta(@RequestBody EtiquetaDTO etiquetaDt){
+        return new ResponseEntity<>(etiquetaService.save(etiquetaDt),HttpStatus.CREATED);
     }
 
     @PutMapping("/ActualizarEtiqueta/{id}")
-    public ResponseEntity<Optional<EtiquetaDTO>>UpdateEtiqueta(@PathVariable Long id,@RequestBody EtiquetaDTO etiquetaDt){
-        if (etiquetaService.Update(id, etiquetaDt).isPresent()) {
-            return new ResponseEntity<>(etiquetaService.Update(id, etiquetaDt),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<EtiquetaDTO>updateEtiqueta(@PathVariable Long id,@RequestBody EtiquetaDTO etiquetaDt){
+            return new ResponseEntity<>(etiquetaService.update(id, etiquetaDt),HttpStatus.OK);
     }
 
     @DeleteMapping("/BorrarEtiqueta/{id}")
-    public ResponseEntity<?>DeleteById(@PathVariable Long id){
-        etiquetaService.DeleteById(id);
+    public ResponseEntity<?>deleteById(@PathVariable Long id){
+        etiquetaService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

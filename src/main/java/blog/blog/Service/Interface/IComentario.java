@@ -5,12 +5,12 @@ import java.util.Optional;
 import blog.blog.Model.DTOs.ComentarioDTO;
 public interface IComentario {
 
-  public List<ComentarioDTO>GetAllComentarios();
-  public Optional<ComentarioDTO>FindById(Long id);
-  public Optional<List<ComentarioDTO>>findByContenidos(String contenido);
-  public Optional<List<ComentarioDTO>>findByContenido(Long idPost,String contenido);
-  public Optional<ComentarioDTO> Save(Long idPost,ComentarioDTO comentario);
-  public Optional<ComentarioDTO>  Update (Long id,ComentarioDTO comentari);
-  public void DeleteById(Long id);
+  public List<ComentarioDTO>getAllComentarios();
+  public ComentarioDTO findById(Long id);
+  public List<ComentarioDTO> findByContenidos(String contenido);
+  public  List<ComentarioDTO> findByContenido(Long idPost,String contenido);
+  public ComentarioDTO save(Long idPost,ComentarioDTO comentario);
+  public  ComentarioDTO  update (Long id,ComentarioDTO comentari);
+  public void deleteById(Long id);
   
 }

@@ -12,7 +12,8 @@ public class CategoriaMapper {
 
   public CategoriaDTO toCategoriaDto(Categoria categoria){
     return CategoriaDTO.builder()
-    .NombreCategoria(categoria.getNombreCategoria())
+    .nombreCategoria(categoria.getNombreCategoria())
+            .id(categoria.getId())
     .build();
    }
 

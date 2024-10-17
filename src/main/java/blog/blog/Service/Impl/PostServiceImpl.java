@@ -1,16 +1,17 @@
 package blog.blog.Service.Impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
+import blog.blog.Exception.Exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import blog.blog.Exception.Exceptions.PostNoEncontradoException;
 import blog.blog.Mapper.PostMapper;
 
 import blog.blog.Model.DTOs.PostDTO;
@@ -40,52 +41,64 @@ public class PostServiceImpl implements IPost {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PostDTO> GetAllPosts() {
-      return PostMapper.toPostsDto(postRepo.findAll());
+    public List<PostDTO> getAllPosts() {
+        List<Post>lista=postRepo.findAll();
+        if (lista.isEmpty()){
+            throw new noHayContenido();
+        }else {
+            return PostMapper.toPostsDto(lista);
+        }
+
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<PostDTO> FindByPalabra(String palabra) {
-        return PostMapper.toPostsDto(postRepo.findByCuerpoComentarioIgnoreCaseContaining(palabra));
+    public List<PostDTO> findByPalabra(String palabra) {
+        List<Post>posts=postRepo.findByCuerpoComentarioIgnoreCaseContaining(palabra);
+        if (posts.isEmpty()){
+            throw new noHayContenido();
+        }else {
+            return PostMapper.toPostsDto(posts);
+        }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<PostDTO> FindByTitulo(String titulo) {
-       if (postRepo.findByTituloIgnoreCase(titulo).isEmpty()) {
-        throw new PostNoEncontradoException("no se ningun post con el titulo "+titulo);
+    public List<PostDTO> findByTitulo(String titulo) {
+        List<Post>posts=postRepo.findByTituloIgnoreCase(titulo);
+       if (posts.isEmpty()) {
+        throw new noHayContenido();
        }else{
-        return PostMapper.toPostsDto(postRepo.findByTituloIgnoreCase(titulo));
+        return PostMapper.toPostsDto(posts);
        }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<PostDTO> FindByDate(LocalDate fecha) {
-        if(postRepo.findByFechaPublicacionLessThan(fecha).isEmpty()){
-            throw new PostNoEncontradoException("no se encontro ningun post con la fecha "+fecha);
+    public List<PostDTO> findByDate(LocalDate fecha) {
+        List<Post>posts=postRepo.findByFechaPublicacionLessThan(fecha);
+        if(posts.isEmpty()){
+            throw new noHayContenido();
         }else{
-            return PostMapper.toPostsDto(postRepo.findByFechaPublicacionLessThan(fecha));
+            return PostMapper.toPostsDto(posts);
         }
-       
     }
 
     @Override
-     @Transactional(readOnly = true)
-    public Optional<PostDTO> FindById(Long id) {
-        if (postRepo.findById(id).isPresent()) {
-            return Optional.of(PostMapper.toPostDto(postRepo.findById(id).get()));
+    @Transactional(readOnly = true)
+    public PostDTO findById(Long id) {
+        Optional<Post>post=postRepo.findById(id);
+        if (post.isPresent()) {
+            return PostMapper.toPostDto(post.get());
         }else{
             throw new PostNoEncontradoException("no se encontro el post con el id "+id);
         }
     }
 
- 
 
     @Override
     @Transactional
-    public Optional<PostDTO> Update (Long id, PostDTO postDt) {
+    public PostDTO update (Long id, PostDTO postDt) {
        
         if (postRepo.existsById(id)) {
             Post post=postRepo.findById(id).get();
@@ -97,33 +110,57 @@ public class PostServiceImpl implements IPost {
             post.setTitulo(postDt.getTitulo());
             post.setContenido(postDt.getContenido());
             postRepo.save(post);
-            return Optional.of(PostMapper.toPostDto(post));
+            return PostMapper.toPostDto(post);
         }else{
             throw new PostNoEncontradoException("no encontro el post con el id "+id);
         }
     }
 
     @Override
-    //@Transactional
-    public void DeleteById(Long id) {
-        postRepo.deleteById(id);
+    public void deleteById(Long id) {
+        if (postRepo.existsById(id)){
+            postRepo.deleteById(id);
+        }else {
+            throw new PostNoEncontradoException("no se encontro el post con el id "+id);
+        }
+
     }
 
     @Override
     @Transactional
-    public Optional<PostDTO> Save(PostDTO postDt) {
+    public PostDTO save(PostDTO postDt) {
         Post post=new Post();
-        Categoria categoria=categoriaRepo.findByNombreCategoria(postDt.getCategoria()).get();
-        List<Etiqueta>listaEtiquetas=etiquetaRepo.findByNombreEtiquetaInIgnoreCase(postDt.getEtiquetas());
-        Usuario usuario=usuarioRepo.findByNickNameIgnoreCase(postDt.getNickNameCreador()).get();
-        post.setCategoria(categoria);
-        post.setEtiquetas(listaEtiquetas);
-        post.setFechaPublicacion(postDt.getFechaPublicacion());
+        Optional<Categoria>categoria=categoriaRepo.findByNombreCategoria(postDt.getCategoria());
+
+        if (categoria.isPresent()){
+            post.setCategoria(categoria.get());
+        }else {
+            throw new CategoriaNoEncontradaException("no se encontro la categoria con el nombr "+postDt.getCategoria());
+        }
+
+        List<Etiqueta>etiquetas=new ArrayList<>();
+        for (String i:postDt.getEtiquetas()){
+            if (etiquetaRepo.findByNombreEtiquetaIgnoreCase(i).isPresent()){
+                etiquetas.add(etiquetaRepo.findByNombreEtiquetaIgnoreCase(i).get());
+            }else{
+                throw new EtiquetaNoEncontradaException("no se encontro la etiqueta con el nombre "+i);
+            }
+            post.setEtiquetas(etiquetas);
+        }
+
+        Optional<Usuario>usuario=usuarioRepo.findByNickNameIgnoreCase(postDt.getNickNameCreador());
+        if (usuario.isPresent()){
+            post.setUsuario(usuario.get());
+        }else {
+            throw new UsuarioNoEncontradoException("no se encontro al usuario con el nickname "+postDt.getNickNameCreador());
+        }
+
         post.setTitulo(postDt.getTitulo());
-        post.setUsuario(usuario);
         post.setContenido(postDt.getContenido());
+        post.setFechaPublicacion(postDt.getFechaPublicacion());
         postRepo.save(post);
-        return Optional.of(postDt);
+
+        return PostMapper.toPostDto(post);
     }
 
 }

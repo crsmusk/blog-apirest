@@ -14,5 +14,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EtiquetaDTO {
-    private String NombreEtiqueta;
+     Long id;
+     String nombreEtiqueta;
 }

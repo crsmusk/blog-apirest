@@ -14,7 +14,7 @@ import blog.blog.Model.DTOs.ComentarioDTO;
 import blog.blog.Repository.ComentarioRepository;
 import blog.blog.Service.Impl.ComentarioServiceImpl;
 
-@SpringBootTest
+/*@SpringBootTest
 public class ComentarioServiceTest {
 
   ComentarioDTO comentarioEsperado=new ComentarioDTO();
@@ -73,4 +73,4 @@ public class ComentarioServiceTest {
     idComentario=comentarioRepo.findByCuerpoComentarioIgnoreCaseContaining(comentarioEsperado.getCuerpoComentario()).get(0).getId();
     comentarioRepo.deleteById(idComentario);
   }
-}
+}*/

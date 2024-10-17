@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,7 +16,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UsuarioDTO {
-    private String Email;
-    private String Password;
-    private String NickName;
+     Long id;
+     String email;
+     String password;
+     String nickName;
+     List<String>roles;
+
 }

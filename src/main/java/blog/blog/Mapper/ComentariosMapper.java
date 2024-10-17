@@ -12,7 +12,8 @@ import blog.blog.Model.Entities.Comentario;
 public class ComentariosMapper {
    public ComentarioDTO toComentarioDTO(Comentario comentario){
     return ComentarioDTO.builder()
-    .CuerpoComentario(comentario.getCuerpoComentario())
+    .cuerpoComentario(comentario.getCuerpoComentario())
+            .id(comentario.getId())
     .build();
    }
 

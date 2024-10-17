@@ -14,6 +14,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComentarioDTO {
-    private String CuerpoComentario;
+     Long id;
+     String nickNameCreador;
+     String cuerpoComentario;
     
 }

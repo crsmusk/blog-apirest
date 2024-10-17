@@ -2,6 +2,7 @@ package blog.blog.Mapper;
 
 import java.util.List;
 
+import blog.blog.Model.Entities.Rol;
 import org.springframework.stereotype.Component;
 
 import blog.blog.Model.DTOs.UsuarioDTO;
@@ -12,9 +13,11 @@ public class UsuarioMapper {
   
    public UsuarioDTO toUsuarioDto(Usuario usuario){
     return UsuarioDTO.builder()
-    .Email(usuario.getEmail())
-    .Password(usuario.getPassword())
-    .NickName(usuario.getNickName())
+            .id(usuario.getId())
+    .email(usuario.getEmail())
+    .password(usuario.getPassword())
+            .roles(usuario.getRoles().stream().map(Rol::getNombreRol).toList())
+    .nickName(usuario.getNickName())
     .build();
    }
 

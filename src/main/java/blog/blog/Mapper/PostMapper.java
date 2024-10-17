@@ -1,5 +1,9 @@
 package blog.blog.Mapper;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
+import blog.blog.Model.Entities.Comentario;
 import org.springframework.stereotype.Component;
 
 import blog.blog.Model.DTOs.PostDTO;
@@ -11,13 +15,18 @@ public class PostMapper {
 
     public PostDTO toPostDto(Post post){
         return PostDTO.builder()
-        .Titulo(post.getTitulo())
-        .FechaPublicacion(post.getFechaPublicacion())
-        .Contenido(post.getContenido())
-        .NickNameCreador(post.getUsuario().getNickName())
+                .id(post.getId())
+        .titulo(post.getTitulo())
+        .fechaPublicacion(post.getFechaPublicacion())
+        .contenido(post.getContenido())
+        .nickNameCreador(post.getUsuario().getNickName())
         .categoria(post.getCategoria().getNombreCategoria())
-        .Etiquetas(post.getEtiquetas().stream().map(Etiqueta->Etiqueta.getNombreEtiqueta()).toList())
-        .comentarios(post.getComentarios().stream().map(Comentario->Comentario.getCuerpoComentario()).toList())
+        .etiquetas(post.getEtiquetas().stream().map(Etiqueta->Etiqueta.getNombreEtiqueta()).toList())
+                .comentarios( Optional.ofNullable(post.getComentarios())
+                        .map(comentarios -> comentarios.stream()
+                                .map(Comentario::getCuerpoComentario)
+                                .toList())
+                        .orElse(Collections.emptyList()))
         .build();
     }
 

@@ -14,5 +14,6 @@ import lombok.Setter;
 @Getter
 @Data
 public class CategoriaDTO {
-    private String NombreCategoria;
+     Long id;
+     String nombreCategoria;
 }

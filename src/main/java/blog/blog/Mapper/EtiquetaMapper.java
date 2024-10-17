@@ -11,7 +11,8 @@ import blog.blog.Model.Entities.Etiqueta;
 public class EtiquetaMapper {
    public EtiquetaDTO toEtiquetaDto(Etiqueta etiqueta){
     return EtiquetaDTO.builder()
-    .NombreEtiqueta(etiqueta.getNombreEtiqueta())
+            .id(etiqueta.getId())
+    .nombreEtiqueta(etiqueta.getNombreEtiqueta())
     .build();
    }
 

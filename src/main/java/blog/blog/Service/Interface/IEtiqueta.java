@@ -5,11 +5,11 @@ import java.util.Optional;
 import blog.blog.Model.DTOs.EtiquetaDTO;
 public interface IEtiqueta {
   
-    public List<EtiquetaDTO>GetAllEtiquetas();
-    public Optional<EtiquetaDTO>findByNombreEtiqueta(String nombre);
-    public Optional<EtiquetaDTO>FindById(Long id);
-    public Optional<EtiquetaDTO> Save(EtiquetaDTO etiquetaDt);
-    public Optional<EtiquetaDTO> Update(Long id,EtiquetaDTO etiquetaDt);
-    public void DeleteById(Long id);
+    public List<EtiquetaDTO>getAllEtiquetas();
+    public EtiquetaDTO findByNombreEtiqueta(String nombre);
+    public EtiquetaDTO findById(Long id);
+    public EtiquetaDTO save(EtiquetaDTO etiquetaDt);
+    public EtiquetaDTO update(Long id,EtiquetaDTO etiquetaDt);
+    public void deleteById(Long id);
     
 } 

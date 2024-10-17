@@ -17,52 +17,45 @@ import blog.blog.Model.DTOs.UsuarioDTO;
 import blog.blog.Service.Impl.UsuarioServiceImpl;
 
 @RestController
-@RequestMapping("/Blog/Post/Usuario")
+@RequestMapping("/Blog/Usuario")
 public class UsuarioController {
   
     @Autowired
     UsuarioServiceImpl usuarioService;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>>GetAll(){
-        if (usuarioService.GetAllUsuarios().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            return new ResponseEntity<>(usuarioService.GetAllUsuarios(),HttpStatus.OK);
-        }
+    public ResponseEntity<List<UsuarioDTO>>getAll(){
+            return new ResponseEntity<>(usuarioService.getAllUsuarios(),HttpStatus.OK);
     }
 
-    @GetMapping("/BuscarUsuarioPorNickName/{NickName}")
-    public ResponseEntity<Optional<UsuarioDTO>>GetByNickName(@PathVariable String NickName){
-        if(usuarioService.FindByNickName(NickName).isPresent()){
-            return new ResponseEntity<>(usuarioService.FindByNickName(NickName),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/BuscarUsuarioPorNickName/{nickName}")
+    public ResponseEntity<UsuarioDTO>getByNickName(@PathVariable String nickName){
+            return new ResponseEntity<>(usuarioService.findByNickName(nickName),HttpStatus.OK);
     }
 
-    @GetMapping("/BuscarUsuarioPorEmail/{Email}")
-    public ResponseEntity<Optional<UsuarioDTO>>GetByEmail(@PathVariable String email){
-        if (usuarioService.FindByEmail(email).isPresent()) {
-            return new ResponseEntity<>(usuarioService.FindByEmail(email),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/BuscarUsuarioPorEmail/{email}")
+    public ResponseEntity<UsuarioDTO>getByEmail(@PathVariable String email){
+            return new ResponseEntity<>(usuarioService.findByEmail(email),HttpStatus.OK);
     }
 
-    @PostMapping("/GuardarUsuario")
-    public ResponseEntity<Optional<UsuarioDTO>>SaveUsuario(@RequestBody UsuarioDTO usuarioDt){
-        return new ResponseEntity<>(usuarioService.Save(usuarioDt),HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<UsuarioDTO>saveUsuario(@RequestBody UsuarioDTO usuarioDt){
+        return new ResponseEntity<>(usuarioService.save(usuarioDt),HttpStatus.CREATED);
     }
 
-    @PutMapping("/ActualizarUsuario/{id}")
-    public ResponseEntity<Optional<UsuarioDTO>>UpdateUsuario(@PathVariable Long id,@RequestBody UsuarioDTO usuarioDt){
-      return new ResponseEntity<>(usuarioService.Update(id, usuarioDt),HttpStatus.OK);
+    @PutMapping("/ActualizarDatosDelUsuario/{id}")
+    public ResponseEntity<UsuarioDTO>updateUsuario(@PathVariable Long id,@RequestBody UsuarioDTO usuarioDt){
+      return new ResponseEntity<>(usuarioService.updateBasicData(id, usuarioDt),HttpStatus.OK);
     }
 
-    @DeleteMapping("/BorrarUsuario/{id}")
-    public ResponseEntity<?>DeleteById(@PathVariable Long id){
-        usuarioService.DeleteById(id);
+    @PutMapping("/cambiarRoles/{id}")
+    public ResponseEntity<UsuarioDTO>updateRolesUsuario(@PathVariable Long id,@RequestBody List<String>roles){
+        return new ResponseEntity<>(usuarioService.updateRol(id,roles),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?>deleteById(@PathVariable Long id){
+        usuarioService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

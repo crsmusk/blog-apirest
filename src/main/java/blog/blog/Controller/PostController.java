@@ -26,54 +26,38 @@ public class PostController {
     PostServiceImpl postService;
 
     @GetMapping
-    public ResponseEntity<List<PostDTO>>GetAll(){
-        if (postService.GetAllPosts().isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else{
-            return new ResponseEntity<>(postService.GetAllPosts(),HttpStatus.OK);
-        }
+    public ResponseEntity<List<PostDTO>>getAll(){
+            return new ResponseEntity<>(postService.getAllPosts(),HttpStatus.OK);
     }
 
     @GetMapping("/BuscarPostPorId/{id}")
-    public ResponseEntity<Optional<PostDTO>>GetById(@PathVariable Long id){
-        if (postService.FindById(id).isPresent()) {
-            return new ResponseEntity<>(postService.FindById(id),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<PostDTO>getById(@PathVariable Long id){
+            return new ResponseEntity<>(postService.findById(id),HttpStatus.OK);
     }
 
-    @GetMapping("/BuscarPostPorTitulo/{Titulo}")
-    public ResponseEntity<List<PostDTO>>GetByTitulo(@PathVariable String titulo){
-        if(postService.FindByTitulo(titulo).isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            return new ResponseEntity<>(postService.FindByTitulo(titulo),HttpStatus.OK);
-        }
+    @GetMapping("/BuscarPostPorTitulo/{titulo}")
+    public ResponseEntity<List<PostDTO>>getByTitulo(@PathVariable String titulo){
+            return new ResponseEntity<>(postService.findByTitulo(titulo),HttpStatus.OK);
     }
 
-    @GetMapping("/BuscarPostPorContenido/{Contenido}")
-    public ResponseEntity<List<PostDTO>>GetByContent(@PathVariable String contenido){
-        if(postService.FindByPalabra(contenido).isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            return new ResponseEntity<>(postService.FindByTitulo(contenido),HttpStatus.OK);
-        }
+    @GetMapping("/BuscarPostPorContenido/{contenido}")
+    public ResponseEntity<List<PostDTO>>getByContent(@PathVariable String contenido){
+            return new ResponseEntity<>(postService.findByTitulo(contenido),HttpStatus.OK);
     }
 
-    @PostMapping("/GuardarPost")
-    public ResponseEntity<Optional<PostDTO>>SavePost(@RequestBody PostDTO postDt){
-        return new ResponseEntity<>(postService.Save(postDt),HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<PostDTO>savePost(@RequestBody PostDTO postDt){
+        return new ResponseEntity<>(postService.save(postDt),HttpStatus.CREATED);
     }
 
     @PutMapping("/ActualizarPost/{id}")
-    public ResponseEntity<Optional<PostDTO>>UpdatePost(@PathVariable Long id,@RequestBody PostDTO postDt){
-        return new ResponseEntity<>(postService.Update(id, postDt),HttpStatus.OK);
+    public ResponseEntity<PostDTO>updatePost(@PathVariable Long id,@RequestBody PostDTO postDt){
+        return new ResponseEntity<>(postService.update(id, postDt),HttpStatus.OK);
     }
 
     @DeleteMapping("/BorrarPost/{id}")
-    public ResponseEntity<?>DeleteById(@PathVariable Long id){
-        postService.DeleteById(id);
+    public ResponseEntity<?>deleteById(@PathVariable Long id){
+        postService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

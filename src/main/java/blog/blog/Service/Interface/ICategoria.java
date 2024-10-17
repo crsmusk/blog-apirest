@@ -5,10 +5,10 @@ import java.util.Optional;
 import blog.blog.Model.DTOs.CategoriaDTO;
 public interface ICategoria {
 
-  public List<CategoriaDTO>GetAllCategoria();
-  public Optional<CategoriaDTO>FindByNombre(String nombre);
-  public Optional<CategoriaDTO>FindById(Long id);
-  public Optional<CategoriaDTO> Save(CategoriaDTO CategoriaDt);
-  public Optional<CategoriaDTO> Update(Long id,CategoriaDTO categoriaDt);
-  public void DeleteById(Long id);
+  public List<CategoriaDTO>getAllCategoria();
+  public CategoriaDTO findByNombre(String nombre);
+  public CategoriaDTO findById(Long id);
+  public CategoriaDTO save(CategoriaDTO CategoriaDt);
+  public CategoriaDTO update(Long id,CategoriaDTO categoriaDt);
+  public void deleteById(Long id);
 }

@@ -25,55 +25,35 @@ public class ComentarioController {
     ComentarioServiceImpl comentarioService;
 
     @GetMapping
-    public List<ComentarioDTO>GetAll(){
-        return comentarioService.GetAllComentarios();
+    public List<ComentarioDTO>getAll(){
+        return comentarioService.getAllComentarios();
     }
 
     @GetMapping("/BuscarComentarioPorId/{id}")
-    public ResponseEntity<Optional<ComentarioDTO>>GetById(@PathVariable Long id){
-
-        if (comentarioService.FindById(id).isPresent()) {
-
-            return new ResponseEntity<>(comentarioService.FindById(id),HttpStatus.OK);
-
-        }else{
-
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<ComentarioDTO>getById(@PathVariable Long id){
+            return new ResponseEntity<>(comentarioService.findById(id),HttpStatus.OK);
     }
 
 
-    @GetMapping("/BuscarComentarioPorContenido/{PosId}/{Contenido}")
-    public ResponseEntity<Optional<List<ComentarioDTO>>>GetByContent(@PathVariable Long idPost,@PathVariable String contenido){
+    @GetMapping("/BuscarComentarioPorContenido/{postId}/{contenido}")
+    public ResponseEntity<List<ComentarioDTO>>getByContent(@PathVariable Long postId,@PathVariable String contenido){
+          return new ResponseEntity<>(comentarioService.findByContenido(postId, contenido),HttpStatus.OK);
 
-        if(comentarioService.findByContenido(idPost,contenido).isPresent()){
-
-          return new ResponseEntity<>(comentarioService.findByContenido(idPost, contenido),HttpStatus.OK);
-
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @PostMapping("/GuardarComentario/{idPost}")
-    public ResponseEntity<Optional<ComentarioDTO>>SaveComentario(@PathVariable Long idPost,@RequestBody ComentarioDTO comentarioDt){
-
-        return new ResponseEntity<>(comentarioService.Save(idPost, comentarioDt),HttpStatus.OK);
-
+    public ResponseEntity<ComentarioDTO>saveComentario(@PathVariable Long idPost,@RequestBody ComentarioDTO comentarioDt){
+        return new ResponseEntity<>(comentarioService.save(idPost, comentarioDt),HttpStatus.CREATED);
     }
 
     @PutMapping("/ActualizarComentario/{id}")
-    public ResponseEntity<Optional<ComentarioDTO>>UpdateComentario(@PathVariable Long id,@RequestBody ComentarioDTO comentarioDt){
-        if (comentarioService.Update(id, comentarioDt).isPresent()) {
-            return new ResponseEntity<>(comentarioService.Update(id, comentarioDt),HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<ComentarioDTO>updateComentario(@PathVariable Long id,@RequestBody ComentarioDTO comentarioDt){
+            return new ResponseEntity<>(comentarioService.update(id, comentarioDt),HttpStatus.OK);
     }
 
     @DeleteMapping("/BorrarComentario")
-    public ResponseEntity<?> DeleteById(@PathVariable Long id){
-        comentarioService.DeleteById(id);
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        comentarioService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

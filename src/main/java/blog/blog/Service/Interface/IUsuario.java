@@ -7,12 +7,13 @@ import blog.blog.Model.DTOs.UsuarioDTO;
 
 public interface IUsuario {
    
-    public List<UsuarioDTO>GetAllUsuarios();
-    public Optional<UsuarioDTO>FindByEmail(String email);
-    public Optional<UsuarioDTO>FindById(Long id);
-    public Optional<UsuarioDTO>FindByNickName(String NickName);
-    public Optional<UsuarioDTO> Save(UsuarioDTO usuarioDt);
-    public Optional<UsuarioDTO> Update(Long id,UsuarioDTO usuarioDt);
-    public void DeleteById(Long id);
+    public List<UsuarioDTO>getAllUsuarios();
+    public UsuarioDTO findByEmail(String email);
+    public UsuarioDTO findById(Long id);
+    public UsuarioDTO findByNickName(String nickName);
+    public UsuarioDTO save(UsuarioDTO usuarioDt);
+    public UsuarioDTO updateBasicData(Long id,UsuarioDTO usuarioDt);
+    public void deleteById(Long id);
+    public UsuarioDTO updateRol(Long id,List<String>roles);
     
 }
