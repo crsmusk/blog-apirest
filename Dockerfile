@@ -4,17 +4,15 @@ EXPOSE 8080
 
 WORKDIR /app
 
-COPY pom.xml .
-
 COPY .mvn ./.mvn
+COPY  pom.xml .
+COPY   mvnw .
+RUN sed -i 's/\r$//' mvnw
 
-COPY mvnw .
 
 RUN ./mvnw dependency:go-offline
-
 COPY src ./src
 
 RUN ./mvnw clean install -DskipTests
 
 ENTRYPOINT [ "java","-jar","/app/target/blog-0.0.1-SNAPSHOT.jar" ]
-
