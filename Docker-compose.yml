@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  blog:
+    image: blog-app  
+    ports:
+      - "8080:80"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/apirest?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456789
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: apirest
+    ports:
+      - "3306:3306"
