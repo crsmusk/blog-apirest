@@ -5,16 +5,23 @@ services:
     ports:
       - "8080:80"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/apirest?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 123456789
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - ./src:/app/src
     depends_on:
       - db
 
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_ROOT_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       MYSQL_DATABASE: apirest
     ports:
-      - "3306:3306"
+      - "3308:3306"
+    volumes:
+      - data_db:/var/lib/mysql
+
+volumes:
+  data_db:
