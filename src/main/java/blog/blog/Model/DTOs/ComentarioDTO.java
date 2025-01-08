@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Data
@@ -14,8 +15,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComentarioDTO {
-     Long id;
-     String nickNameCreador;
-     String cuerpoComentario;
+     private Long id;
+     private @NonNull String nickNameCreador;
+     private String cuerpoComentario;
     
 }

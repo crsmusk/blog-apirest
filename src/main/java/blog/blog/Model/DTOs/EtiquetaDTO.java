@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Data
@@ -14,6 +15,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EtiquetaDTO {
-     Long id;
-     String nombreEtiqueta;
+     private Long id;
+     private @NonNull String nombreEtiqueta;
 }

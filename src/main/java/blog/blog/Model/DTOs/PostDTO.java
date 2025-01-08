@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 @Data
 @Builder
@@ -16,12 +17,13 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PostDTO {
-     Long id;
-     String titulo;
-     LocalDate fechaPublicacion;
-     String contenido;
-     String nickNameCreador;
-     String categoria;
-     List<String>etiquetas;
-     List<String>comentarios;
+     private Long id;
+     
+     private @NonNull String titulo;
+     private @NonNull LocalDate fechaPublicacion;
+     private @NonNull String contenido;
+     private @NonNull String nickNameCreador;
+     private String categoria;
+     private List<String>etiquetas;
+     private List<String>comentarios;
 }

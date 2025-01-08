@@ -9,6 +9,6 @@ import lombok.*;
 @Getter
 @Setter
 public class PermisoDTO {
-    Long id;
-    String nombrePermiso;
+    private Long id;
+    private String nombrePermiso;
 }

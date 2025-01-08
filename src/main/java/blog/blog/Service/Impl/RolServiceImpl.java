@@ -30,11 +30,8 @@ public class RolServiceImpl implements IRol {
     @Override
     public List<RolDTO> getAll() {
         List<Rol>lista=rolRepo.findAll();
-        if (lista.isEmpty()){
-            throw  new RolNoEncontradoException("no hay roles registrados");
-        }else {
+        
             return mapper.rolesARolesDto(lista);
-        }
     }
 
     @Override

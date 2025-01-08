@@ -43,12 +43,7 @@ public class PostServiceImpl implements IPost {
     @Transactional(readOnly = true)
     public List<PostDTO> getAllPosts() {
         List<Post>lista=postRepo.findAll();
-        if (lista.isEmpty()){
-            throw new noHayContenido();
-        }else {
             return PostMapper.toPostsDto(lista);
-        }
-
     }
 
     @Override
@@ -135,7 +130,7 @@ public class PostServiceImpl implements IPost {
         if (categoria.isPresent()){
             post.setCategoria(categoria.get());
         }else {
-            throw new CategoriaNoEncontradaException("no se encontro la categoria con el nombr "+postDt.getCategoria());
+            throw new CategoriaNoEncontradaException("no se encontro la categoria con el nombrE "+postDt.getCategoria());
         }
 
         List<Etiqueta>etiquetas=new ArrayList<>();
@@ -145,8 +140,9 @@ public class PostServiceImpl implements IPost {
             }else{
                 throw new EtiquetaNoEncontradaException("no se encontro la etiqueta con el nombre "+i);
             }
-            post.setEtiquetas(etiquetas);
         }
+        
+         post.setEtiquetas(etiquetas);
 
         Optional<Usuario>usuario=usuarioRepo.findByNickNameIgnoreCase(postDt.getNickNameCreador());
         if (usuario.isPresent()){

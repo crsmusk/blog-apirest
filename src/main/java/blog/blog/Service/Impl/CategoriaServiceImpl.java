@@ -3,7 +3,6 @@ package blog.blog.Service.Impl;
 import java.util.List;
 import java.util.Optional;
 
-import blog.blog.Exception.Exceptions.noHayContenido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +23,7 @@ public class CategoriaServiceImpl implements ICategoria{
     @Override
     public List<CategoriaDTO> getAllCategoria() {
         List<Categoria>categorias=categoriaRepo.findAll();
-        if (categorias.isEmpty()){
-            throw new noHayContenido();
-        }else{
-            return categoriaMapper.toCategoriasDTO(categorias);
-        }
-
+        return categoriaMapper.toCategoriasDTO(categorias);
     }
 
     @Override

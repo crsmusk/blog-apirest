@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.List;
@@ -17,9 +18,9 @@ import java.util.List;
 @Setter
 public class UsuarioDTO {
      Long id;
-     String email;
-     String password;
-     String nickName;
-     List<String>roles;
+     private @NonNull String email;
+     private @NonNull String password;
+     private String nickName;
+     private List<String>roles;
 
 }

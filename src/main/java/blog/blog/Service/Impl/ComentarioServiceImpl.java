@@ -38,11 +38,7 @@ public class ComentarioServiceImpl implements IComentario{
     @Override
     public List<ComentarioDTO> getAllComentarios() {
         List<Comentario>comentarios=comentarioRepo.findAll();
-        if (comentarios.isEmpty()){
-            throw new noHayContenido();
-        }else{
-            return comentariosMapper.toComentariosDto(comentarios);
-        }
+        return comentariosMapper.toComentariosDto(comentarios);
 
     }
 

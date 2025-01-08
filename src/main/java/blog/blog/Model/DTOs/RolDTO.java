@@ -12,6 +12,6 @@ import java.util.List;
 @Setter
 public class RolDTO {
     Long id;
-    String nombreRol;
-    List<String>nombrePermisos;
+    private @NonNull String nombreRol;
+    private @NonNull List<String>nombrePermisos;
 }

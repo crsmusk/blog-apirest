@@ -2,6 +2,7 @@ package blog.blog.Model.Entities;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Etiqueta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Long id;
+ @Column(unique = true)
  private String nombreEtiqueta;
  @ManyToMany(mappedBy = "Etiquetas")
  private List<Post>posts;

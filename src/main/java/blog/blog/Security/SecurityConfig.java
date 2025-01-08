@@ -32,7 +32,7 @@ public class SecurityConfig {
         .httpBasic(Customizer.withDefaults())
         .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(request->{
-            request.requestMatchers(HttpMethod.GET).authenticated();
+           // request.requestMatchers(HttpMethod.GET).authenticated();
             request.anyRequest().permitAll();
         });
 

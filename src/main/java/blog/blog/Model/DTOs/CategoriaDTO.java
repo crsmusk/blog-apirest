@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Builder
@@ -14,6 +15,6 @@ import lombok.Setter;
 @Getter
 @Data
 public class CategoriaDTO {
-     Long id;
-     String nombreCategoria;
+     private Long id;
+     private @NonNull String nombreCategoria;
 }

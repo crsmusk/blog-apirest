@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import blog.blog.Exception.Exceptions.RolNoEncontradoException;
-import blog.blog.Exception.Exceptions.noHayContenido;
-import blog.blog.Model.Entities.Permiso;
 import blog.blog.Model.Entities.Rol;
 import blog.blog.Repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +31,7 @@ public class UsuarioServiceImpl implements IUsuario{
 
     @Override
     public List<UsuarioDTO> getAllUsuarios() {
-        List<Usuario>lista=usuarioRepo.findAll();
-        if (lista.isEmpty()){
-            throw new noHayContenido();
-        }else{
-            return usuarioMapper.toUsuariosDto(usuarioRepo.findAll());
-        }
+        return usuarioMapper.toUsuariosDto(usuarioRepo.findAll());
     }
 
     @Override

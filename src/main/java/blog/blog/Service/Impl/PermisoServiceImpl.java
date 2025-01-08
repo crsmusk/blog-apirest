@@ -7,7 +7,6 @@ import blog.blog.Model.Entities.Permiso;
 import blog.blog.Repository.PermisoRepository;
 import blog.blog.Service.Interface.IPermiso;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +23,9 @@ public class PermisoServiceImpl implements IPermiso {
     @Override
     public List<PermisoDTO> getAll() {
         List<Permiso>lista=permisoRepo.findAll();
-        if (lista.isEmpty()){
-            throw  new PermisoNoEncontradoException("no hay permisos registrados");
-        }else{
+       
             return mapper.permisosAPermisosDto(lista);
-        }
+        
 
     }
 
